@@ -20,24 +20,28 @@ public class AplicativoEgg {
         double [][] alumnos = new double [10][4];
         int op = 0;
         do{
+            
             System.out.println("Menu");
             System.out.println("1 - Ingresar Notas: ");
             System.out.println("2 - Ver notas: ");
-            System.out.println("3 - Ver promedios: ");
-            System.out.println("4 - ver Aprobados: ");
-            System.out.println("5 - Salir");
+            System.out.println("3 - Llenar de forma aleatoria: ");
+            System.out.println("4 - Salir");
             System.out.print("Ingrese una opcion: ");
             op = sc.nextInt();
             
             switch (op){
                 case 1: llenarNotas(alumnos); break;
                 case 2: imprimirNotas(alumnos); break;
-                case 3: System.out.println(verPromedios(alumnos)); break;
-                case 4: verAprovados(alumnos); break;
-                case 5: break;
+                case 3: llenarAleatorio(alumnos);System.out.println("LLenado automatico completado"); break;
+                case 4: break;
                 default: System.out.println("Ingrese una opcion correcta: ");
             }
-        }while(op != 5);
+            if (op != 4){
+                System.out.println("presione una teclapra contunuar.. ");
+                sc.nextLine();
+                sc.nextLine();
+            }
+        }while(op != 4);
     }
     
     public static void llenarNotas(double [][] alumnos){
@@ -74,12 +78,55 @@ public class AplicativoEgg {
                     System.out.println("Ingrese una nota dentro del rango permitodo  1 - 10");
                 }
                 
-                }while(alumnos[i][j] < 0 || alumnos[i][j]>10);
-                
-                
+                }while(alumnos[i][j] < 0 || alumnos[i][j]>10);               
             }
         }
     }
     
+    public static void imprimirNotas(double [][] alumnos){
+        double promedio = 0;
+        System.out.print(formato(" "));
+        System.out.print("  Evaluativo 1");
+        System.out.print("  Evaluativo 2");
+        System.out.print("  Integrador 1");
+        System.out.print("  Integrador 2");
+        System.out.print("      Promedio");
+        System.out.print("      Aprobado");
+        System.out.println("");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(formato("Alumno " + (i + 1)));
+            promedio = 0;
+            for (int j = 0; j < 4; j++) {                              
+                 System.out.print(formato(String.valueOf(alumnos[i][j])));
+                 switch(j){
+                     case 0: promedio += alumnos[i][j] * 0.1;break;
+                     case 1: promedio += alumnos[i][j] * 0.15;break;
+                     case 2: promedio += alumnos[i][j] * 0.25;break;
+                     case 3: promedio += alumnos[i][j] * 0.5;break;
+                 }
+            }
+            System.out.print(formato(String.valueOf(Math.round(promedio))));
+            boolean aprobado = promedio >= 7;
+           
+            System.out.print(aprobado ? formato("si") : formato("no"));
+            System.out.println("");
+        }
+    }
+    
+    private static String formato(String dato){
+        while(14 - dato.length() > 0){
+            dato = " " + dato;
+        }
+        return dato;
+    }
+
+    public static void llenarAleatorio(double [][] alumnos)  {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 4; j++) {
+                alumnos[i][j] = Math.round(Math.random() * 10);
+            }
+        }
+    
+    }  
     
 }
