@@ -48,17 +48,16 @@ public class CuadroMagico {
     }
     
     public static boolean esMagica(int [][] m){
-        int fila=0,columna=0,diagonal=0,inversa=0,f=2;
+        int fila=0,columna=0,diagonal=0,inversa=0;
         
         for (int i = 0; i < 3; i++) {
             fila = m[0][i];
             columna = m[i][0];
             diagonal= m[i][i];
-            inversa = m[f][f];  
-            if (fila != columna){
+            inversa = m[2 - i][2 - i];  
+            if (fila != columna || fila != m[0][i - 1]){
                 return false;
             }
-            f--;
         }   
        
         if (diagonal != columna || inversa != columna )return false;
