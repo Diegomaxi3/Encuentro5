@@ -48,9 +48,19 @@ public class CuadroMagico {
     }
     
     public static boolean esMagica(int [][] m){
-        if (m[0][0] + m [0][1] + m [0][2] != 15) return false;
-        if (m[0][0] + m [1][1] + m [2][2] != 15) return false;
-        if (m[0][0] + m [1][0] + m [2][0] != 15) return false;           
+        int fila=0,columna=0,diagonal=0,inversa=0;
+        
+        for (int i = 0; i < 3; i++) {
+            fila = m[0][i];
+            columna = m[i][0];
+            diagonal= m[i][i];
+            inversa = m[2 - i][2 - i];  
+            if (fila != columna || fila != m[0][i - 1]){
+                return false;
+            }
+        }   
+       
+        if (diagonal != columna || inversa != columna )return false;
         return true;
     }
     
